@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To Do List</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="box">
+    <h1>To Do List</h1>
+  <div class="todoList">
+    <div class="inputbox">
+      <input type="text" class="input" id="input">
+      <button class="addlist" id="addlist" onclick="addlist()">+</button>
+    </div>
+    <ul class="list" id="list">
+      
+    </ul>
+    
+  </div>
+  </div>
+  <script>
+    let input=document.getElementById("input");
+    let list=document.getElementById("list");
+    let mintext=3;
+    let i=1;
+    function textfilter(x){
+      if(x)
+      {
+        if(x.length>=mintext){
+          return x;
+        }
+        else{
+          alert("Min Length is 3");
+          return false;
+        }
+      }else{
+        alert("Empty Text");
+        return false;
+      }
+    }
+
+    function listshow(text){
+      return `<li class="listitem" id="listitem${i}">
+        <button class="btn btn-del" onclick="listdelete(${i})">Delete</button>
+        <button class="btn btn-edit" onclick="edit(${i})">Edit</button>
+        <span id="listText${i}">${text}</span>
+      </li>`;
+    }
+
+function listdelete(listid){
+  let current=document.getElementById(`listitem${listid}`);
+  let currentname=document.getElementById(`listText${listid}`).innerHTML;
+  let deleconfirm=confirm(`Are You Sure to delete ${currentname}`);
+  if(deleconfirm){
+    list.removeChild(current);
+    input.focus();
+  }
+}
+function edit(listid){
+  console.log(listid);
+  let current=document.getElementById(`listText${listid}`);
+  let newtext=prompt('Change list',current.innerHTML);
+  if(textfilter(newtext))
+  {
+
+    current.innerHTML=newtext;
+
+  }
+}
+
+
+
+    function addlist(){
+      let inputText=textfilter(input.value);
+      if(inputText)
+      {
+        list.innerHTML+=listshow(inputText);
+        input.value="";
+        input.focus();
+      }
+      i++;
+    }
+  </script>
+</body>
+</html>

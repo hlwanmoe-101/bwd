@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      font-size: 30px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body{
+      background-color: #000000;
+    }
+    .calc{
+      width: 400px;
+      margin: 100px auto;
+    }
+    .display{
+      color: #ffffff;
+      font-size: 60px;
+      padding: 20px;
+      text-align: right;
+    }
+    .keypad tr:first-child .key{
+      background-color: #a5a5a5;
+    }
+    .keypad tr td:last-child .key{
+      background-color: #ffa45c;
+    }
+    .keypad tr:first-child .key:active{
+      background-color: #a5a5a590;
+    }
+    .keypad tr td:last-child .key:active{
+      background-color: #ffa45c90;
+    }
+    .key{
+      width: 90px;
+      height: 90px;
+      border: 2px solid black;
+      text-align: center;
+      line-height: 90px;
+      border-radius: 90px;
+      margin: 5px;
+      background-color: #333333;
+      color: #ffffff;
+      cursor: pointer;
+      user-select: none;
+    }
+    .key:active{
+      background-color: #33333390;
+    }
+    .keypad{
+
+    }
+  </style>
+</head>
+<body>
+  <div class="calc">
+    <div class="display">0</div>
+    <div class="key-table">
+      <table class="keypad">
+        <tr>
+          <td>
+            <div class="key" onclick="allclear()">AC</div>
+          </td>
+          <td>
+            <div class="key" onclick="clrlast()">C</div>
+          </td>
+          <td>
+            <div class="key" onclick="showdiplay('%')">%</div>
+          </td>
+          <td>
+            <div class="key" onclick="showdiplay('/')">&#47;</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="key" onclick="showdiplay(7)">7</div>
+          </td>
+          <td>
+            <div class="key" onclick="showdiplay(8)">8</div>
+          </td>
+          <td>
+            <div class="key" onclick="showdiplay(9)">9</div>
+          </td>
+          <td>
+            <div class="key" onclick="showdiplay('*')">x</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="key" onclick="showdiplay(4)">4</div>
+          </td>
+          <td>
+            <div class="key" onclick="showdiplay(5)">5</div>
+          </td>
+          <td>
+            <div class="key" onclick="showdiplay(6)">6</div>
+          </td>
+          <td>
+            <div class="key" onclick="showdiplay('-')">-</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="key" onclick="showdiplay(1)">1</div>
+          </td>
+          <td>
+            <div class="key" onclick="showdiplay(2)">2</div>
+          </td>
+          <td>
+            <div class="key" onclick="showdiplay(3)">3</div>
+          </td>
+          <td>
+            <div class="key" onclick="showdiplay('&plus;')">+</div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div class="key" onclick="showdiplay(0)" style="width: 190px;">0</div>
+          </td>
+          <td>
+            <div class="key" onclick="showdiplay('.')">.</div>
+          </td>
+          <td>
+            <div class="key" onclick="calculate()">=</div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <script>
+    let displaybox=document.querySelector(".display");
+    let opera=['+','-','*','/','%','.'];
+    function  showdiplay(x) {
+      let current=displaybox.innerHTML;
+      let lastindex=current[current.length-1];
+      if(displaybox.innerHTML==0)
+      {
+        return displaybox.innerHTML=x;
+      }else if (opera.includes(x) && opera.includes(lastindex)){
+        return displaybox.innerHTML=current.substring(0,current.length-1)+x;
+      }
+      return displaybox.innerHTML+=x;
+    }
+    function calculate() {
+      let current=displaybox.innerHTML;
+      displaybox.innerHTML=eval(current);
+    }
+    function allclear() {
+      displaybox.innerHTML=0;
+    }
+    function clrlast() {
+      let current=displaybox.innerHTML;
+      if(current.length==1){
+        displaybox.innerHTML=0;
+
+      }else {
+        displaybox.innerHTML=current.substring(0,current.length-1);
+      }
+    }
+  </script>
+</body>
+</html>
